@@ -11,13 +11,12 @@ public class PlayerController : MonoBehaviour
     public bool leftThrust;
     public bool rightThrust;
     public bool upwardThrust;
-
-    // Cache storage
-    Rigidbody2D rb;
+    //cache
+    Movements mover;
     // process 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        mover = GetComponent<Movements>();
     }
     private void Update()
     {
@@ -28,23 +27,20 @@ public class PlayerController : MonoBehaviour
     {
         if (upwardThrust)
         {
-            ApplyThrust(Vector2.up);
+            mover.ApplyThrust(Vector2.up,this.speed);
         }
      
         if (leftThrust)
         {
-            ApplyThrust(Vector2.left);
+            mover.ApplyThrust(Vector2.left,this.speed);
         }
     
         if (rightThrust)
         {
-            ApplyThrust(Vector2.right);
+            mover.ApplyThrust(Vector2.right,this.speed);
         }
     
     }
 
-    private void ApplyThrust(Vector2 direction)
-    {
-        rb.AddRelativeForce(direction * speed * Time.deltaTime);
-    }
+   
 }
