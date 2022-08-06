@@ -15,15 +15,15 @@ public class ManualInput : MonoBehaviour
         player = GetComponent<PlayerController>();
 
     }
-    private void OnEnable()
-    {
-        playerInputs.Enable();
-    }
+    //private void OnEnable()
+    //{
+    //    playerInputs.Enable();
+    //}
 
-    private void OnDisable()
-    {
-        playerInputs.Disable();
-    }
+    //private void OnDisable()
+    //{
+    //    playerInputs.Disable();
+    //}
     private void Update()
     {
         UserInputData();

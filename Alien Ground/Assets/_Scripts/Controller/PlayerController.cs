@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         {
             mover.ApplyThrust(Vector2.right,this.speed);
         }
-    
+       
     }
 
    
