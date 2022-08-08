@@ -7,23 +7,23 @@ public class ManualInput : MonoBehaviour
 {
 
     public MasterInputs playerInputs;
-    PlayerController player;
+    PlayerAttributes rawDataReceiver;
 
     private void Awake()
     {
         playerInputs = new MasterInputs();
-        player = GetComponent<PlayerController>();
+        rawDataReceiver = GetComponent<PlayerAttributes>();
 
     }
-    //private void OnEnable()
-    //{
-    //    playerInputs.Enable();
-    //}
+    private void OnEnable()
+    {
+        playerInputs.Enable();
+    }
 
-    //private void OnDisable()
-    //{
-    //    playerInputs.Disable();
-    //}
+    private void OnDisable()
+    {
+        playerInputs.Disable();
+    }
     private void Update()
     {
         UserInputData();
@@ -32,30 +32,19 @@ public class ManualInput : MonoBehaviour
     private void UserInputData()
     {
         //checking the user input sending the raw input data to player controller
-        if (Keyboard.current.aKey.isPressed)
-        {
-            player.leftThrust = true;
-        }
-        else
-        {
-            player.leftThrust = false;
-        }
-        if (Keyboard.current.dKey.isPressed)
-        {
-            player.rightThrust = true;
-        }
-        else
-        {
-            player.rightThrust = false;
-        }
+        Vector2 movementInput = playerInputs.PlayerActions.Move.ReadValue<Vector2>();
+
+        rawDataReceiver.linearThrust = movementInput.x;
+        
         if (Keyboard.current.wKey.isPressed)
         {
-            player.upwardThrust = true;
+            rawDataReceiver.upwardThrust = true;
         }
         else
         {
-            player.upwardThrust = false;
+            rawDataReceiver.upwardThrust = false;
         }
+       
         // hook needs to be added here
     }
 }
