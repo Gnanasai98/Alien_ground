@@ -44,7 +44,19 @@ public class ManualInput : MonoBehaviour
         {
             rawDataReceiver.upwardThrust = false;
         }
-       
+
         // hook needs to be added here
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            rawDataReceiver.shoot = true;
+        }
+        else if(Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            rawDataReceiver.shoot = false;
+        }
+        else
+        {
+            rawDataReceiver.shoot = false;
+        }
     }
 }

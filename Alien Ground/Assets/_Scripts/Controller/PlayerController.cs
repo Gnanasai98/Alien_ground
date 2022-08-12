@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Movements();
-        
+        mover.GrapplingAction();
     }
 
     private void Movements()

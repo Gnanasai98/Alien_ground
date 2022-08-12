@@ -8,7 +8,7 @@ public class PlayerAttributes : MonoBehaviour
     
     public bool upwardThrust;
     public float linearThrust;
-
+    public bool shoot = false;
     [Header("Mover")]
     public float goalRotational=10f;
 }
