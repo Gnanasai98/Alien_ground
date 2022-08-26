@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,8 @@ public class Movements : MonoBehaviour
     private DistanceJoint2D joint;
     private PlayerAttributes rawInput;
     private Vector2 mouseStart, mouseEnd,shootingDir;
-    Vector2 worldPos;
+    Vector2 mousePos;
+    bool grappling;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -56,32 +58,37 @@ public class Movements : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            mouseStart = worldPos;
+            StartGrapple();
         }
-        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            mouseEnd = worldPos;
-            shootingDir = mouseStart - mouseEnd;
-            bool hit= Physics2D.Raycast(transform.position, shootingDir.normalized, hookRange, grapplinglayer);
-            if (hit)
-            {
-                Debug.Log("hit");
-            }
-        }
-        else
-        {
-            mouseStart = Vector2.zero;
-            mouseEnd = Vector2.zero;
+            StopGrapple();
         }
     }
+
+    private void StartGrapple()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos,10f, grapplinglayer);
+        mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        if (hit.collider)
+        {
+            Debug.Log(hit.transform.gameObject.name);
+            Debug.Log(mousePos);
+        }
+
+    }
+
+    private void StopGrapple()
+    {
+
+    }
+
+
+
     private void OnDrawGizmos()
     {
-      
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(transform.position, shootingDir.normalized);
-      
+        Gizmos.color = Color.green;
     }
 }
 
@@ -113,12 +120,44 @@ public class Movements : MonoBehaviour
 //}
 //return;
 
+//if (Mouse.current.leftButton.wasPressedThisFrame)
+//{
+//    mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+//    // RaycastHit2D detectInfo = Physics2D.Raycast(transform.position, mousePos,hookRange);
+//    // Debug.Log(detectInfo.transform.gameObject.name);
+//    RaycastHit2D detectInfo = Physics2D.Raycast(transform.position, mousePos, hookRange, grapplinglayer);
+
+//    if (detectInfo)
+//    {
+
+//        lineRenderer.SetPosition(0, detectInfo.point);
+//        lineRenderer.SetPosition(1, transform.position);
+//        joint.connectedAnchor = detectInfo.point;
+//        joint.enabled = true;
+//        lineRenderer.enabled = true;
+//    }
+
+//    return;
+//}
+//else if (Mouse.current.leftButton.wasReleasedThisFrame)
+//{
+//    joint.enabled = false;
+//    lineRenderer.enabled = false;
+//}
+//if (joint.enabled)
+//{
+//    lineRenderer.SetPosition(1, transform.position);
+//}
 
 
 
+//worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+//mouseStart = worldPos;
 
-
-
+//worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+//mouseEnd = worldPos;
+//shootingDir = mouseStart - mouseEnd;
 
 
 

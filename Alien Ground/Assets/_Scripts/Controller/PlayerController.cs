@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
         if (inputs.linearThrust < 0f)
         {
             mover.ApplyThrust(Vector2.left,this.speed);
-            Debug.Log("woking");
         }
     
         if (inputs.linearThrust > 0f)
